@@ -15,8 +15,8 @@ This repository contains a Python script that captures frames from a specified w
 
 1. Clone the repository:
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone <https://github.com/Dmetrikx/computer_vision>
+    cd <computer_vision>
     ```
 
 2. Install the required packages:
