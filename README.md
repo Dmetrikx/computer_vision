@@ -28,7 +28,7 @@ This repository contains a Python script that captures frames from a specified w
 
 1. Run the script:
     ```sh
-    python script.py
+    python computer_vision_picture_in_picture.py
     ```
 
 2. Ensure that the window you want to capture is titled "Picture in Picture". You can change the window title by modifying the `get_window_bbox` function's `window_title` parameter.
