@@ -2,6 +2,8 @@
 
 This repository contains a Python script that captures frames from a specified window, processes them using the YOLOv5 model for object detection, and displays the results. We use multi-threading to achieve a result closer to real-time than waiting for the model to process a frame before moving on to the next frame.
 
+![image](https://github.com/user-attachments/assets/9c1b2b34-0197-4e1c-b70c-ed862721482a)
+
 ## Requirements
 
 - Python 3.x
