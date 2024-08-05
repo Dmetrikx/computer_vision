@@ -1,6 +1,6 @@
 # YOLOv5 Window Capture and Object Detection
 
-This repository contains a Python script that captures frames from a specified window, processes them using the YOLOv5 model for object detection, and displays the results in real-time.
+This repository contains a Python script that captures frames from a specified window, processes them using the YOLOv5 model for object detection, and displays the results. We use multi-threading to achieve a result closer to real-time than waiting for the model to process a frame before moving on to the next frame.
 
 ## Requirements
 
