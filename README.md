@@ -47,7 +47,7 @@ The script performs the following tasks:
     bbox = get_window_bbox()
     ```
 
-3. **Capture Frames**: Frames are captured from the specified window using the `mss` library.
+3. **Capture Frames**: Frames are captured from the specified window using the `mss` library (30 FPS).
     ```python
     def capture_frames():
         sct = mss.mss()
@@ -80,14 +80,14 @@ The script performs the following tasks:
         return frame
     ```
 
-5. **Display Frames**: Processed frames are displayed using OpenCV.
+5. **Display Frames**: Processed frames are displayed using OpenCV (20 FPS).
     ```python
     def display_frames():
         display_event.wait()
         while True:
             future = result_queue.get()
             frame = future.result()
-            cv2.imshow('Animal Detection', frame)
+            cv2.imshow('Object Detection', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             time.sleep(0.05)
