@@ -76,7 +76,7 @@ def display_frames():
     while True:
         future = result_queue.get()
         frame = future.result()
-        cv2.imshow('Animal Detection', frame)
+        cv2.imshow('Object Detection', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         time.sleep(0.05)  # Delay display
