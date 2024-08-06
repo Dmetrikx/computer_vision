@@ -111,6 +111,15 @@ The script performs the following tasks:
     process_thread.join()
     display_thread.join()
     ```
+    processing frames specifically will have 16 threads dedicated to it.
+   ```python
+   def process_frames():
+    with ThreadPoolExecutor(max_workers=16) as executor:
+        while True:
+            frame = frame_queue.get()
+            future = executor.submit(process_frame, frame)
+            result_queue.put(future)
+   ```
 
 ## License
 
