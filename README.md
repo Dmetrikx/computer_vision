@@ -96,7 +96,7 @@ The script performs the following tasks:
             time.sleep(0.05)
     ```
 
-6. **Multithreading**: The script uses multiple threads to capture, process, and display frames concurrently.
+6. **Multithreading**: The script uses multiple threads to capture, process, and display frames concurrently. It is recommended we add some sort of time delay between starting the capture and processing threads and the display threads to build up a set of frames we can render.
     ```python
     capture_thread = threading.Thread(target=capture_frames)
     process_thread = threading.Thread(target=process_frames)
