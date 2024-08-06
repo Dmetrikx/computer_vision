@@ -101,9 +101,11 @@ The script performs the following tasks:
     capture_thread = threading.Thread(target=capture_frames)
     process_thread = threading.Thread(target=process_frames)
     display_thread = threading.Thread(target=display_frames)
-
+    
     capture_thread.start()
     process_thread.start()
+    
+    time.sleep(10)
     display_event.set()
     display_thread.start()
 
