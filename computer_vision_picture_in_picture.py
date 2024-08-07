@@ -1,5 +1,4 @@
 import cv2
-import torch
 import mss
 import numpy as np
 import pygetwindow as gw
@@ -8,9 +7,14 @@ import queue
 import time
 from concurrent.futures import ThreadPoolExecutor
 import random
+from ultralytics import YOLO
+import torch
 
-# Load YOLOv5 model
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f'Using device: {device}')
+
+model = YOLO("yolov8n.pt").to(device)
 
 # Dictionary to store colors for each class
 class_colors = {}
@@ -51,21 +55,25 @@ def capture_frames():
 def process_frame(frame):
     # Convert from BGRA to BGR
     frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
-    results = model(frame)
-    detections = results.xyxy[0].cpu().numpy()
-    for x1, y1, x2, y2, conf, cls in detections:
+    results = model.predict(frame)
+
+    for detection in results[0].boxes:
+        x1, y1, x2, y2 = map(int, detection.xyxy[0])
+        conf = detection.conf[0]
+        cls = detection.cls[0]
+
         class_name = model.names[int(cls)]
         if class_name not in class_colors:
             # Assign a new random color if the class is not already in the dictionary
             class_colors[class_name] = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         label = f"{class_name} {conf:.2f}"
         color = class_colors[class_name]
-        cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
-        cv2.putText(frame, label, (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+        cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
     return frame
 
 def process_frames():
-    with ThreadPoolExecutor(max_workers=16) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         while True:
             frame = frame_queue.get()
             future = executor.submit(process_frame, frame)
